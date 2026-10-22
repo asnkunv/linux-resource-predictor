@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # collect_metrics.sh: append one row of system metrics to data/metrics.csv
+export LC_ALL=C
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OUT_FILE="$PROJECT_DIR/data/raw/metrics.csv"
+OUT_FILE="$PROJECT_DIR/data/metrics.csv"
 
 mkdir -p "$(dirname "$OUT_FILE")"
 
@@ -11,7 +12,7 @@ if [ ! -s "$OUT_FILE" ]; then
   echo "timestamp,cpu_percent,iowait_percent,ram_percent,swap_percent,disk_percent,load1,load5,load15,process_count,top_cpu_proc,top_cpu_pct,top_mem_proc,top_mem_pct" > "$OUT_FILE"
 fi
 
-# CPU and iowait: take two samples of /proc/stat one second apart
+# CPU and iowait: two samples of /proc/stat one second apart
 read -r _ u1 n1 s1 i1 w1 q1 sq1 st1 _ < /proc/stat
 sleep 1
 read -r _ u2 n2 s2 i2 w2 q2 sq2 st2 _ < /proc/stat

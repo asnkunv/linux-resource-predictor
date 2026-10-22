@@ -39,3 +39,5 @@ pip-delete-this-directory.txt
 .idea/
 .DS_Store
 Thumbs.db
+
+tmp_test/
